@@ -4,6 +4,7 @@
 
 int stack[SIZE],top=-1;
 
+//  Function to check STACK is full.
 int is_full(){
 	if(top==SIZE-1)
 		return 1;
@@ -11,6 +12,7 @@ int is_full(){
 		return 0;
 }
 
+// Function to check STACK is empty.
 int is_empty(){
 	if(top==-1)
 		return 1;
@@ -18,6 +20,7 @@ int is_empty(){
 		return 0;
 }
 
+// Function to push item into the STACK.
 void push(int item){
 	if(is_full()){
 		printf("\n\tSTACK OVERFLOW!");
@@ -26,6 +29,7 @@ void push(int item){
 	stack[++top] = item;
 }
 
+// Function to pop item from the STACK.
 int pop(){
 	if(is_empty()){
 		printf("\n\tSTACK UNDERFLOW!");
@@ -34,6 +38,7 @@ int pop(){
 	return stack[top--];
 }
 
+// Function to display STACK content.
 int stack_content(){
 	if(is_empty()){
 		printf("\n\tSTACK EMPTY");
@@ -48,12 +53,12 @@ int stack_content(){
 	}
 }
 
-
-int main(int argc, char const *argv[])
+// Main function.
+int main()
 {
 	int choice,input;
 	while(1){
-		
+		// Options 
 		printf("\n<<<<<<<<<<<<<<< OPTIONS >>>>>>>>>>>>>>>>");
 		printf("\n1 PUSH");
 		printf("\n2 POP");

@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// Structure for each node.
 typedef struct node{
 	int data;
 	struct node *next;
@@ -8,6 +9,8 @@ typedef struct node{
 
 STACK *top=NULL;
 
+
+// Function to check STACK is empty.
 int is_empty(){
 	if(top==NULL)
 		return 1;
@@ -15,6 +18,8 @@ int is_empty(){
 		return 0;
 }
 
+
+// Function to push item into the STACK.
 int push(int input){
 	STACK *element = (STACK*)malloc(sizeof(STACK));
 	if(element == NULL){
@@ -33,6 +38,7 @@ int push(int input){
 	}
 }
 
+// Function to pop item from the STACK.
 int pop(){
 	if(is_empty()){
 		printf("\n\tSTACK IS EMPTY!");
@@ -49,7 +55,7 @@ int pop(){
 	}
 }
 
-
+// Function to display STACK content.
 int stack_content(){
 	if(is_empty()){
 		printf("\n\tSTACK IS EMPTY!");
@@ -64,13 +70,13 @@ int stack_content(){
 	}
 }
 
-
-int main(int argc, char const *argv[])
+// Main function.
+int main()
 {
 
 	int choice,input;
 	while(1){
-		
+		// Options 
 		printf("\n<<<<<<<<<<<<<<< OPTIONS >>>>>>>>>>>>>>>>");
 		printf("\n1 PUSH");
 		printf("\n2 POP");

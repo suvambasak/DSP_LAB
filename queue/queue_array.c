@@ -4,6 +4,7 @@
 
 int queue[SIZE], front=-1, rear=-1;
 
+// Function to check QUEUE is empty.
 int is_empty(){
 	if(front==-1)
 		return 1;
@@ -11,6 +12,7 @@ int is_empty(){
 		return 0;
 }
 
+// Function to check QUEUE is full.
 int is_full(){
 	if(rear==SIZE-1)
 		return 1;
@@ -18,6 +20,7 @@ int is_full(){
 		return 0;
 }
 
+// Function for enqueue operation.
 void enqueue(int item){
 	if(is_full()){
 		printf("\n\tOVERFLOW!");
@@ -31,6 +34,7 @@ void enqueue(int item){
 	queue[++rear] = item;
 }
 
+// Function for dequeue operation.
 int dequeue(){
 	if(is_empty()){
 		printf("\n\tUNDERFLOW!");
@@ -44,11 +48,12 @@ int dequeue(){
 	return queue[front++];
 }
 
-int main(int argc, char const *argv[])
+// Main function.
+int main()
 {
 	int choice,input;
 	while(1){
-		
+		// Options 
 		printf("\n<<<<<<<<<<<<<<< OPTIONS >>>>>>>>>>>>>>>>");
 		printf("\n1 ENQUEUE");
 		printf("\n2 DEQUEUE");

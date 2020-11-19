@@ -1,12 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// Structure for each node.
 struct node{
 	int data;
 	struct node* link;
 }*FRONT=NULL, *REAR=NULL;
 
-
+// Function to check QUEUE is empty.
 int is_empty(){
 	if(FRONT==NULL && REAR==NULL)
 		return 1;
@@ -14,7 +15,7 @@ int is_empty(){
 		return 0;
 }
 
-
+// Function for enqueue operation.
 int enqueue(int item){
 	struct node *new_node = (struct node*)malloc(sizeof(struct node));
 	if(new_node == NULL){
@@ -33,7 +34,7 @@ int enqueue(int item){
 	}
 }
 
-
+// Function for dequeue operation.
 int dequeue(){
 	if(is_empty()){
 		printf("\n\tUNDERFLOW!");
@@ -53,12 +54,12 @@ int dequeue(){
 	}
 }
 
-
-int main(int argc, char const *argv[])
+// Main function.
+int main()
 {
 	int choice,input;
 	while(1){
-		
+		// Options 
 		printf("\n<<<<<<<<<<<<<<< OPTIONS >>>>>>>>>>>>>>>>");
 		printf("\n1 ENQUEUE");
 		printf("\n2 DEQUEUE");
