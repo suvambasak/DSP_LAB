@@ -1,0 +1,59 @@
+cc -g file.c
+gdb a.out
+-----------------------------------------------------------------
+FIRST NEED TO BREAK THE CODE.
+(gdb) b main
+Breakpoint 1 at 0x1171: file file.c, line 7.
+-----------------------------------------------------------------
+(gdb) r	[RUN]
+Starting program: /home/codebox/a.out 
+
+Breakpoint 1, main () at file.c:7
+7	int main(){
+-----------------------------------------------------------------
+(gdb) l	[list -> show few lines of code]
+2	
+3	void fun(int x){
+4	    printf("\n %d ",x);
+5	}
+6	
+7	int main(){
+8	    int i;
+9	
+10	    for(i=0;i<5;i++){
+11	        fun(i);
+-----------------------------------------------------------------
+(gdb) f	[Frame]
+#0  main () at file.c:7
+7	int main(){
+-----------------------------------------------------------------
+
+(gdb) n	[NEXT -> next line]
+10	    for(i=0;i<5;i++){
+-----------------------------------------------------------------
+(gdb) print i		[print var_name -> prints variables]
+$1 = 0
+-----------------------------------------------------------------
+(gdb) n
+11	        fun(i);
+(gdb) step			[step -> for get inside the fun](s is short of step)
+fun (x=21845) at file.c:3
+3	void fun(int x){
+(gdb) 
+-----------------------------------------------------------------
+(gdb) f		[frame show where I am]
+#0  fun (x=0) at file.c:4
+4	    printf("\n %d ",x);
+-----------------------------------------------------------------
+(gdb) backtrace		[activation stack]
+#0  fun (x=2) at file.c:4
+#1  0x0000555555555190 in main () at file.c:11
+(gdb) 
+----------------------------------------------------------------
+(gdb) info b			[show info about breakpoint]
+Num     Type           Disp Enb Address            What
+1       breakpoint     keep y   0x0000555555555171 in main at file.c:7
+	breakpoint already hit 1 time
+2       breakpoint     keep y   0x0000555555555171 in main at file.c:7
+	breakpoint already hit 1 time
+(gdb) delete 1			[delete breakpoint]
