@@ -46,8 +46,11 @@ int pop(int *stack, int *top)
 	return item;
 }
 
+
+// Main function.
 int main()
 {
+	// Declaring two stack.
 	int stack1[SIZE], top1 = -1;
 	int stack2[SIZE], top2 = -1;
 
@@ -72,6 +75,8 @@ int main()
 		case 1:
 			printf("\nENTER ITEM : ");
 			scanf("%d", &input);
+
+			// Push into the stack 1.
 			if (is_full(&top1))
 			{
 				printf("\n\tOVERFLOW!");
@@ -82,12 +87,14 @@ int main()
 			}
 			break;
 		case 2:
+			// Pop from stack 2.
 			if (!is_empty(&top2))
 			{
 				printf("\nITEM POPED : %d", pop(stack2, &top2));
 			}
 			else
 			{
+				// Moving all items from stack 1 to stack 2 when stack 2 is empty.
 				if (!is_empty(&top1))
 				{
 					while (!is_empty(&top1))
