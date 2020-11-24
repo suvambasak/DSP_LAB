@@ -118,6 +118,14 @@ char pop_opstk(){
 	return op_stack[op_top--];
 }
 
+char get_top(){
+	if(is_opstk_empty()){
+		return 0;
+	}else{
+		return op_stack[op_top];
+	}
+}
+
 int get_precedence(char ch){
     switch (ch)
     {
@@ -151,7 +159,6 @@ int is_operator(char ch){
 }
 
 void infix_to_postfix(char* infix){
-	char c;
 	for (int i=0;i<strlen(infix);i++){
 		// c = infix[i];
 		if(isdigit(infix[i])){
@@ -163,9 +170,43 @@ void infix_to_postfix(char* infix){
 			}
 			insert(d,0);
 		}else{
-			insert(infix[i],1);
+			// insert(infix[i],1);
+			if (is_opstk_empty()){
+				push_opstk(infix[i]);
+			}else{
+				if (infix[i] == '('){
+					push_opstk(infix[i]);
+				}
+				else if (infix[i] == ')'){
+					while(get_top() != '('){
+						insert(pop_opstk(),1);
+					}
+					pop_opstk();
+				}
+				else{
+					if(get_precedence(get_top()) == get_precedence(infix[i])){
+						while (get_precedence(get_top()) == get_precedence(infix[i])){
+							insert(pop_opstk(),1);
+						}
+						push_opstk(infix[i]);
+						
+					}
+					else if(get_precedence(get_top()) < get_precedence(infix[i])){
+						push_opstk(infix[i]);
+					}
+					else if(get_precedence(get_top()) > get_precedence(infix[i])){
+						while(get_precedence(get_top()) > get_precedence(infix[i])){
+							insert(pop_opstk(),1);
+						}
+						push_opstk(infix[i]);
+					}
+				}
+			}
 		}
 			
+	}
+	while(!is_opstk_empty()){
+		insert(pop_opstk(),1);
 	}
 }
 
