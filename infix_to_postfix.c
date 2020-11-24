@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include<string.h>
 #include<ctype.h> 
+#include <math.h>
 #define SIZE 100
 
 char op_stack[SIZE];
@@ -46,7 +47,7 @@ int display(){
 		return 0;
 	}else{
 		node *temp=HEAD;
-		printf("\nDisplay: ");
+		printf("\n POSTFIX: ");
 		while(temp!=NULL){
 			if (temp->flg)
 				printf("%c ",temp->num);
@@ -203,17 +204,68 @@ void infix_to_postfix(char* infix){
 				}
 			}
 		}
-			
 	}
 	while(!is_opstk_empty()){
 		insert(pop_opstk(),1);
 	}
 }
 
+int evaluate(){
+	if(HEAD==NULL){
+		printf("\n\t NO EXPRESSION FOUND.");
+		return 0;
+	}else{
+		node *temp=HEAD;
+		int op1,op2;
+		while(temp!=NULL){
+			if(temp->flg){
+				op2 = pop_numstk();
+				op1 = pop_numstk();
+
+				switch (temp->num)
+				{
+				case '^':
+					// printf("^\n");
+					push_numstk(pow(op1,op2));
+					break;
+				case '*':
+					// printf("*\n");
+					push_numstk(op1*op2);
+					break;
+				case '/':
+					// printf("/\n");
+					push_numstk(op1/op2);
+					break;
+				case '+':
+					// printf("+\n");
+					push_numstk(op1+op2);
+					break;
+				case '-':
+					// printf("-\n");
+					push_numstk(op1-op2);
+					break;
+				default:
+					printf("-------");
+				}
+			}else{
+				push_numstk(temp->num);
+			}
+			temp=temp->next;
+		}
+		return pop_numstk();
+	}
+}
+
 int main(){
     char infix[SIZE] = "10+(3*4-(4/2^2)*5)*3";
+	printf("\n ENTER INFIX: ");
+	scanf("%s",infix);
 	infix_to_postfix(infix);
 	display();
+	printf("\n\n");
+	printf(" EVALUATED: %d",evaluate());
+
+	printf("\n\n");
 
     return 0;
 }
