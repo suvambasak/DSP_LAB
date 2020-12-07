@@ -1,82 +1,94 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct node{
-	struct node *left, *right;
-	int data;
-} *root=NULL;
+// Structure for node.
+struct node
+{
+    struct node *left, *right;
+    int data;
+} *root = NULL;
 int *in, *post, size;
 
-int findnextnode(int start, int end){
-    int i,j;
-    for(i=size-1; i>=0;i--){
-        for(j=start;j<=end;j++){
-            if(post[i]==in[j]) return j;
+// Function to find node.
+int findnextnode(int start, int end)
+{
+    int i, j;
+    for (i = size - 1; i >= 0; i--)
+    {
+        for (j = start; j <= end; j++)
+        {
+            if (post[i] == in[j])
+                return j;
         }
     }
     return -1;
 }
 
-struct node* buildtree(struct node* root, int start, int end){
-    if(start>end) return NULL;
+// Function to build tree from inorder and post order.
+struct node *buildtree(struct node *root, int start, int end)
+{
+    if (start > end)
+        return NULL;
 
-    root = (struct node*)malloc(sizeof(struct node));
-    root->left=root->right=NULL;
-    
-    int index = findnextnode(start,end);
+    // Creating node.
+    root = (struct node *)malloc(sizeof(struct node));
+    root->left = root->right = NULL;
+
+    // getting the value of the node.
+    int index = findnextnode(start, end);
     root->data = in[index];
-    printf(" index : %d  Val: %d \n",index,in[index]);
 
-    if (start==end) {
-        printf(" start==end : return root \n");
+    // Last node in that path.
+    if (start == end)
         return root;
-    }
 
-    root->left=buildtree(root->left,start,index-1);
-    root->right=buildtree(root->right,index+1,end);
+    // Left and Right subtree.
+    root->left = buildtree(root->left, start, index - 1);
+    root->right = buildtree(root->right, index + 1, end);
 
     return root;
 }
 
-void preorder(struct node* root){
-	if(root!=NULL){
-        printf("%d ",root->data);
-		preorder(root->left);
-		preorder(root->right);
-	}
+// Function to print preorder.
+void preorder(struct node *root)
+{
+    if (root != NULL)
+    {
+        printf("%d ", root->data);
+        preorder(root->left);
+        preorder(root->right);
+    }
 }
 
+// Main function.
+int main()
+{
+    int i;
+    // Size input.
+    printf("\n ENTER NUMBER OF NODES : ");
+    scanf("%d", &size);
 
-int main(){
+    // Allocating memory for the inorder and post order.
+    in = (int *)malloc(sizeof(int) * size);
+    post = (int *)malloc(sizeof(int) * size);
 
-    size=7;
+    // Input inorder.
+    printf("\n ENTER IN-ORDER : ");
+    for (i = 0; i < size; i++)
+        scanf("%d", &in[i]);
 
-    in = (int*)malloc(sizeof(int)*size);
-    post = (int*)malloc(sizeof(int)*size);
-    in[0]=4;
-    in[1]=2;
-    in[2]=5;
-    in[3]=1;
-    in[4]=6;
-    in[5]=3;
-    in[6]=7;
+    // Input postorder.
+    printf("\n ENTER POST-ORDER : ");
+    for (i = 0; i < size; i++)
+        scanf("%d", &post[i]);
 
-    post[0]=4;
-    post[1]=5;
-    post[2]=2;
-    post[3]=6;
-    post[4]=7;
-    post[5]=3;
-    post[6]=1;
+    // Building the tree.
+    root = buildtree(root, 0, size - 1);
 
-    root = buildtree(root,0,size-1);
+    // Print preorder traversal.
+    printf("\n PRE-ORDER : ");
     preorder(root);
 
-    // printf("root : %d\n",root->data);
-    // root = root->right;
-    // printf("root : %d\n",root->data);
-    // root = root->left;
-    // printf("root : %d\n",root->data);
-    
+    printf("\n");
     return 0;
 }
