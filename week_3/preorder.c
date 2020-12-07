@@ -65,7 +65,7 @@ int main()
 {
     int i;
     // Size input.
-    printf("\n ENTER NUMBER OF NODES : ");
+    // printf("\n ENTER NUMBER OF NODES : ");
     scanf("%d", &size);
 
     // Allocating memory for the inorder and post order.
@@ -73,12 +73,12 @@ int main()
     post = (int *)malloc(sizeof(int) * size);
 
     // Input inorder.
-    printf("\n ENTER IN-ORDER : ");
+    // printf("\n ENTER IN-ORDER : ");
     for (i = 0; i < size; i++)
         scanf("%d", &in[i]);
 
     // Input postorder.
-    printf("\n ENTER POST-ORDER : ");
+    // printf("\n ENTER POST-ORDER : ");
     for (i = 0; i < size; i++)
         scanf("%d", &post[i]);
 
@@ -86,9 +86,9 @@ int main()
     root = buildtree(root, 0, size - 1);
 
     // Print preorder traversal.
-    printf("\n PRE-ORDER : ");
+    // printf("\n PRE-ORDER : ");
     preorder(root);
 
-    printf("\n");
+    // printf("\n");
     return 0;
 }
