@@ -11,17 +11,6 @@ char op_stack[SIZE];
 int num_stack[SIZE];
 int op_top = -1, num_top = -1;
 
-struct tree_node{
-    struct tree_node *left, *right;
-	int flg;
-    int data;
-} *root = NULL;
-
-typedef struct stack_node{
-	struct tree_node *addr;
-	struct stack_node *next;
-}STACK;
-
 // Node structure for holding expression.
 typedef struct node
 {
@@ -30,9 +19,33 @@ typedef struct node
 	struct node *next;
 } node;
 
-node *HEAD = NULL;
-STACK *top=NULL;
+// Node structure for tree node.
+struct tree_node{
+    struct tree_node *left, *right;
+	int flg;
+    int data;
+} *root = NULL;
 
+// Node structure for stack for pushing tree.
+typedef struct stack_node{
+	struct tree_node *addr;
+	struct stack_node *next;
+}STACK;
+
+// Tree stack and linked list.
+STACK *top=NULL;
+node *HEAD = NULL;
+
+
+// Function to check tree stack is empty or not.
+int is_adr_empty(){
+	if(top==NULL)
+		return 1;
+	else
+		return 0;
+}
+
+// Function to push tree node into the stack.
 int adr_push(struct tree_node *input){
 	STACK *element = (STACK*)malloc(sizeof(STACK));
 	if(element == NULL){
@@ -51,13 +64,7 @@ int adr_push(struct tree_node *input){
 	}
 }
 
-int is_adr_empty(){
-	if(top==NULL)
-		return 1;
-	else
-		return 0;
-}
-
+// Function to pop tree node from the stack.
 struct tree_node* adr_pop(){
 	if(is_adr_empty()){
 		printf("\n\tSTACK IS EMPTY!");
@@ -101,8 +108,8 @@ int insert(int value, int flag)
 	return 1;
 }
 
-// Function to show infix expression.
-int display()
+// Function to to build expression tree.
+int buildexpressiontree()
 {
 	if (HEAD == NULL)
 	{
@@ -112,37 +119,40 @@ int display()
 	else
 	{
 		node *temp = HEAD;
-		printf("\n POSTFIX: ");
 
 		while (temp != NULL)
 		{
 			if (temp->flg){
-				printf("%c ", temp->num);
-				struct tree_node* new_node = (struct tree_node*)malloc(sizeof(struct tree_node));
+				// For operator create a node.
+                struct tree_node* new_node = (struct tree_node*)malloc(sizeof(struct tree_node));
 				new_node->data=temp->num;
 				new_node->flg=temp->flg;
 				new_node->left=NULL;
 				new_node->right=NULL;
 
+				// Pop two node from the stack.
 				struct tree_node* r = adr_pop();
 				struct tree_node* l = adr_pop();
 
+				// Add left and right to the operator node.
 				new_node->left=l;
 				new_node->right=r;
 
+				// Push the operator node into the stack.
 				adr_push(new_node);
 
-				
-			}
+            }
 			else{
-				printf("%d ", temp->num);
-				struct tree_node* new_node = (struct tree_node*)malloc(sizeof(struct tree_node));
+                // for operand create a node.
+                struct tree_node* new_node = (struct tree_node*)malloc(sizeof(struct tree_node));
 				new_node->data=temp->num;
 				new_node->flg=temp->flg;
 				new_node->left=NULL;
 				new_node->right=NULL;
+
+				// Push the node into the stack.
 				adr_push(new_node);
-			}
+            }
 			temp = temp->next;
 		}
 		return 1;
@@ -357,66 +367,12 @@ void infix_to_postfix(char *infix)
 	}
 }
 
-// Function for evaluating the post fix expression.
-int evaluate()
-{
-	if (HEAD == NULL)
-	{
-		printf("\n\t NO EXPRESSION FOUND.");
-		return 0;
-	}
-	else
-	{
-		node *temp = HEAD;
-		// var operand.
-		int op1, op2;
-		while (temp != NULL)
-		{
-			if (temp->flg)
-			{
-
-				// Poping two operand from the number stack.
-				op2 = pop_numstk();
-				op1 = pop_numstk();
-
-				// Performing the operation and pushing the result into the number stack.
-				switch (temp->num)
-				{
-				case '^':
-					push_numstk(pow(op1, op2));
-					break;
-				case '*':
-					push_numstk(op1 * op2);
-					break;
-				case '/':
-					push_numstk(op1 / op2);
-					break;
-				case '+':
-					push_numstk(op1 + op2);
-					break;
-				case '-':
-					push_numstk(op1 - op2);
-					break;
-				default:
-					printf("ERROR");
-					break;
-				}
-			}
-			else
-			{
-				// Pushing the operands into the number stack.
-				push_numstk(temp->num);
-			}
-			temp = temp->next;
-		}
-		// Returning the result by poping the last element from the number stack.
-		return pop_numstk();
-	}
-}
-
+// Function to check input expression is valid or not.
 void valid(char* infix){
 	for (int i = 0; i < strlen(infix); i++){
+		// If input char is not digit & not operator.
 		if(!isdigit(infix[i])&&!is_operator(infix[i])){
+			// If input char is not ().
 			if(infix[i] !='(' && infix[i] !=')'){
 				printf("Invalid");
 				exit(0);
@@ -426,10 +382,14 @@ void valid(char* infix){
 }
 
 
+// Function to evaluate the expression tree.
 int eval_exp_tree(struct tree_node* root){
+	// Empty.
 	if(root==NULL) return 0;
+	// leaf node of the tree.
 	if(root->right==NULL && root->left==NULL) return root->data;
 
+	// All other node | operator node.
 	int left_value = eval_exp_tree(root->left);
 	int right_value = eval_exp_tree(root->right);
 
@@ -437,56 +397,41 @@ int eval_exp_tree(struct tree_node* root){
 	{
 		case '^':
 			return (pow(left_value, right_value));
-			break;
 		case '*':
 			return (left_value * right_value);
-			break;
 		case '/':
 			return (left_value / right_value);
-			break;
 		case '+':
 			return (left_value + right_value);
-			break;
 		case '-':
-			return (left_value - left_value);
-			break;
+			return (left_value - right_value);
 		default:
 			printf("ERROR");
 			break;
 	}
 }
 
-
 // Main function.
 int main()
 {
-	char infix[SIZE] = "3+((5+9)*2)";
-	valid(infix);
+	// char infix[SIZE] = "3+((5+9)*2)";
+	// char infix[SIZE] = "((10*7)*5)+((100-(75/15))+5)";
 
 	// Input infix expression.
-	// printf("\n ENTER INFIX: ");
-	// scanf("%s",infix);
+	printf(" INPUT INFIX: ");
+	char infix[SIZE];
+	scanf("%s",infix);
+    valid(infix);
 
 	// Function call to convert infix to postfix.
 	infix_to_postfix(infix);
 
 	// Show the postfix exression.
-	display();
-
-	// root = adr_pop();
-	// printf("\n >> %c \n",root->data);
-	// root=root->right;
-	// printf("\n >> %c \n",root->data);
-	// root=root->left;
-	// printf("\n >> %c \n",root->data);
-	// root=root->right;
-	// printf("\n >> %d \n",root->data);
-
-	printf("\n>>> %d\n",eval_exp_tree(adr_pop()));
+	buildexpressiontree();
 
 	// Result.
-	printf("\n\n");
-	printf(" EVALUATED: %d", evaluate());
+	printf("\n");
+	printf(" EVALUATED: %d", eval_exp_tree(adr_pop()));
 	printf("\n\n");
 
 	return 0;
