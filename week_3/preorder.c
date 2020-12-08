@@ -92,3 +92,22 @@ int main()
     // printf("\n");
     return 0;
 }
+
+/*
+
+Appraoch:
+
+int nodes = 7
+
+int[] inOrder = { 4, 2, 5, 1, 6, 3, 7 };
+
+int[] postOrder = { 4, 5, 2, 6, 7, 3, 1 };.
+
+Last element in the postorder [] will be the root of the tree, here it is 1.
+Now the search ele­ment 1 in inorder[], say you find it at posi­tion i, once you find it, make note of ele­ments which are left to i (this will con­struct the left­sub­tree) and ele­ments which are right to i ( this will con­struct the rightSubtree).
+Suppose in previous step, there are X number of elements which are left of ‘i’ (which will construct the leftsubtree), take first X elements from the postorder[] traversal, this will be the post order traversal for elements which are left to i. similarly if there are Y number of elements which are right of ‘i’ (which will construct the rightsubtree), take next Y elements, after X elements from the postorder[] traversal, this will be the post order traversal for elements which are right to i
+From previous two steps construct the left and right subtree and link it to root.left and root.right respectively.
+Pre order will be 1,2,4,5,3,6,7
+
+
+*/
