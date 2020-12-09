@@ -67,59 +67,60 @@ int main()
     return 0;
 }
 
-// #######################################################################################################
-// A number is circular prime if the number and all its cyclic permutations are prime.
+/*
 
-// For example:
+A number is circular prime if the number and all its cyclic permutations are prime.
 
-// The number 3779 is circular prime because all the cyclic permutations
+For example:
 
-// 3779, 9377, 7937, 7793 are prime numbers.
+The number 3779 is circular prime because all the cyclic permutations
 
-// Where as the number 3877 is not circular prime because one of its cyclic permutation 7738 is not a prime number.
+3779, 9377, 7937, 7793 are prime numbers.
 
-// Input/Output Specification:
+Where as the number 3877 is not circular prime because one of its cyclic permutation 7738 is not a prime number.
 
-//  - Any input <= 0 to be treated as invalid input. Any input > 0 to be treated as valid input
+Input/Output Specification:
 
-//  - If the number <= 0, your program should print -1
+ - Any input <= 0 to be treated as invalid input. Any input > 0 to be treated as valid input
 
-//  - If the number is circular prime, your program should print 1
+ - If the number <= 0, your program should print -1
 
-//  - If the number is not circular prime, your program should print 0
+ - If the number is circular prime, your program should print 1
 
-// Sample Input/Output:
+ - If the number is not circular prime, your program should print 0
 
-// Input:
+Sample Input/Output:
 
-//  -100
+Input:
 
-//  Output:
+ -100
 
-//  -1
+ Output:
 
-// Input:
+ -1
 
-//  0
+Input:
 
-//  Output:
+ 0
 
-//  -1
+ Output:
 
-// Input:
+ -1
 
-//  3779
+Input:
 
-//  Output:
+ 3779
 
-//  1
+ Output:
 
-//  Input:
+ 1
 
-//  3877
+ Input:
 
-//  Output:
+ 3877
 
-//  0
+ Output:
 
-//  ######################################################################################################
+ 0
+
+ */
