@@ -102,7 +102,7 @@ void dfs(int node)
 
 	// If there is a adjacent node. recursively call DFS with that node.
 	for (int i = 0; i < total_node; i++)
-		if (graph[node][i] == 1 && visited[i] == 0)
+		if (1 == graph[node][i] && 0 == visited[i])
 			dfs(i);
 }
 
@@ -136,7 +136,7 @@ int main()
 	// BFS calling for components of graph.
 	printf("\n Depth first search :\n");
 	for (int node = 0; node < total_node; node++)
-		if (visited[node] == 0)
+		if (0 == visited[node])
 			dfs(node);
 
 	printf("\n");

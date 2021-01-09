@@ -107,7 +107,7 @@ void bfs(int node)
 		for (int i = 0; i < total_node; i++)
 		{
 			// Exploring all the adjacent nodes.
-			if (graph[node][i] == 1 && visited[i] == 0)
+			if (1 == graph[node][i] && 0 == visited[i])
 			{
 				// Enqueue the unvisied nodes.
 				enqueue(i);
@@ -153,7 +153,7 @@ int main()
 	// BFS calling for components of graph.
 	printf("\n Breadth-first search :\n");
 	for (int node = 0; node < total_node; node++)
-		if (visited[node] == 0)
+		if (0 == visited[node])
 			bfs(node);
 
 	printf("\n");
