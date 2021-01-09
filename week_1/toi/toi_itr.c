@@ -111,7 +111,7 @@ int main()
 
     // Moving the disk.
     for (i = 1; i <= total_moves; i++)
-    {
+    {== 1
         if ((i % 3) == 1)
         {
             // Move for odd number of disk.

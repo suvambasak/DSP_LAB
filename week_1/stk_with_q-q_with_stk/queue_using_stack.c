@@ -46,7 +46,6 @@ int pop(int *stack, int *top)
 	return item;
 }
 
-
 // Main function.
 int main()
 {

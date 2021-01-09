@@ -36,7 +36,7 @@ int isempty()
 void push(char c)
 {
     STACK *new_node = (STACK *)malloc(sizeof(STACK));
-    if (new_node == NULL)// if (NULL == new_node)
+    if (new_node == NULL) // if (NULL == new_node)
     {
         printf("STACK IS OVERFLOW!");
         return;
