@@ -10,8 +10,13 @@ struct node
 
 // Global variables
 struct node *front = NULL, *rear = NULL;
-int graph[100][100];
 
+int **graph;
+int total_node;
+int *visited;
+int *node_name;
+
+// int graph[100][100];
 // int graph[100][100]={
 //         {0,1,1,1,0},
 //         {1,0,1,0,0},
@@ -28,10 +33,6 @@ int graph[100][100];
 // 		{0,1,0,0,0,1},
 // 		{0,0,0,0,1,0}
 //     };
-
-int total_node;
-int *visited;
-int *node_name;
 
 // Function to check QUEUE is empty.
 int is_empty()
@@ -131,6 +132,9 @@ int main()
 	// Allocating memeory.
 	visited = (int *)calloc(total_node, sizeof(int));
 	node_name = (int *)calloc(total_node, sizeof(int));
+	graph = (int **)malloc(total_node * sizeof(int *));
+	for (int i = 0; i < total_node; i++)
+		graph[i] = (int *)malloc(total_node * sizeof(int));
 
 	// Name of the nodes.
 	printf("\n NAME OF %d NODES : ", total_node);
