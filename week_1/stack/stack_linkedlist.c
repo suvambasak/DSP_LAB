@@ -6,14 +6,14 @@ typedef struct node
 {
 	int data;
 	struct node *next;
-} STACK;
+} stack;
 
-STACK *top = NULL;
+stack *top = NULL;
 
 // Function to check STACK is empty.
 int is_empty()
 {
-	if (top == NULL)
+	if (NULL == top)
 		return 1;
 	else
 		return 0;
@@ -22,8 +22,8 @@ int is_empty()
 // Function to push item into the STACK.
 int push(int input)
 {
-	STACK *element = (STACK *)malloc(sizeof(STACK));
-	if (element == NULL)
+	stack *element = (stack *)malloc(sizeof(stack));
+	if (NULL == element)
 	{
 		printf("\n\t STACK IS FULL!!");
 		return 0;
@@ -31,7 +31,7 @@ int push(int input)
 	else
 	{
 		element->data = input;
-		if (top == NULL)
+		if (NULL == top)
 		{
 			top = element;
 			top->next = NULL;
@@ -57,7 +57,7 @@ int pop()
 	{
 		int item = top->data;
 
-		STACK *del = top;
+		stack *del = top;
 		top = top->next;
 		del->next = NULL;
 		free(del);
@@ -76,7 +76,7 @@ int stack_content()
 	}
 	else
 	{
-		STACK *temp = top;
+		stack *temp = top;
 		printf("\nSTACK CONTENT : ");
 		while (temp)
 		{

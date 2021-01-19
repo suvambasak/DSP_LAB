@@ -51,7 +51,7 @@ int insert(int value, int flag)
 // Function to show infix expression.
 int display()
 {
-	if (HEAD == NULL)
+	if (NULL == HEAD)
 	{
 		printf("\n\tLIST IS EMPTY!!");
 		return 0;
@@ -61,7 +61,7 @@ int display()
 		node *temp = HEAD;
 		printf("\n POSTFIX: ");
 
-		while (temp != NULL)
+		while (NULL != temp)
 		{
 			if (temp->flg)
 				printf("%c ", temp->num);
@@ -76,7 +76,7 @@ int display()
 //  Function to check number STACK is full.
 int is_numstk_full()
 {
-	if (num_top == SIZE - 1)
+	if (SIZE - 1 == num_top)
 		return 1;
 	else
 		return 0;
@@ -85,7 +85,7 @@ int is_numstk_full()
 //  Function to check number STACK is empty.
 int is_numstk_empty()
 {
-	if (num_top == -1)
+	if (-1 == num_top)
 		return 1;
 	else
 		return 0;
@@ -116,7 +116,7 @@ int pop_numstk()
 //  Function to check operator STACK is empty.
 int is_opstk_empty()
 {
-	if (op_top == -1)
+	if (-1 == op_top)
 		return 1;
 	else
 		return 0;
@@ -125,7 +125,7 @@ int is_opstk_empty()
 //  Function to check operator STACK is full.
 int is_opstk_full()
 {
-	if (op_top == SIZE - 1)
+	if (SIZE - 1 == op_top)
 		return 1;
 	else
 		return 0;
@@ -182,24 +182,6 @@ int get_precedence(char ch)
 	case '-':
 		return 1;
 	default:
-		return 0;
-	}
-}
-
-// Function to check input char is a operator.
-int is_operator(char ch)
-{
-	if (
-		ch == '^' ||
-		ch == '+' ||
-		ch == '-' ||
-		ch == '*' ||
-		ch == '/')
-	{
-		return 1;
-	}
-	else
-	{
 		return 0;
 	}
 }

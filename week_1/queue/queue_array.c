@@ -7,7 +7,7 @@ int queue[SIZE], front = -1, rear = -1;
 // Function to check QUEUE is empty.
 int is_empty()
 {
-	if (front == -1)
+	if (-1 == front)
 		return 1;
 	else
 		return 0;
@@ -16,7 +16,7 @@ int is_empty()
 // Function to check QUEUE is full.
 int is_full()
 {
-	if (rear == SIZE - 1)
+	if (SIZE - 1 == rear)
 		return 1;
 	else
 		return 0;
@@ -30,7 +30,7 @@ void enqueue(int item)
 		printf("\n\tOVERFLOW!");
 		return;
 	}
-	if (rear == -1)
+	if (-1 == rear)
 	{
 		front++;
 		queue[++rear] = item;

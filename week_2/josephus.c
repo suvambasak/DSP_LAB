@@ -9,7 +9,7 @@ typedef struct node
 } node;
 
 // Head of locate to the first army.
-node *HEAD = NULL;
+node *head = NULL;
 
 // Function to creates node for each army in circular linkedlist.
 void create_nodes(int total)
@@ -24,9 +24,9 @@ void create_nodes(int total)
         p->next = NULL;
 
         // First node.
-        if (HEAD == NULL)
+        if (NULL == head)
         {
-            HEAD = p;
+            head = p;
             temp = p;
             p = NULL;
         }
@@ -39,23 +39,23 @@ void create_nodes(int total)
         }
     }
     // Setting last node next is HEAD.
-    temp->next = HEAD;
+    temp->next = head;
 }
 
 // Function to show all the nodes.
 int display()
 {
-    if (HEAD == NULL)
+    if (NULL == head)
     {
         printf("\n\tNODE NOT FOUND!");
         return 0;
     }
     else
     {
-        node *temp = HEAD;
+        node *temp = head;
         // Prrinting all the nodes.
         printf("\n DISPLAY :");
-        while (temp->next != HEAD)
+        while (temp->next != head)
         {
             printf(" %d -> ", temp->data);
             temp = temp->next;
@@ -70,7 +70,7 @@ int display()
 int solve_josephus(int skip)
 {
     int temp_skip;
-    node *victim = HEAD;
+    node *victim = head;
     node *prev = NULL;
     node *del = NULL;
 

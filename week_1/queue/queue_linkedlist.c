@@ -6,12 +6,12 @@ struct node
 {
 	int data;
 	struct node *link;
-} *FRONT = NULL, *REAR = NULL;
+} *front = NULL, *rear = NULL;
 
 // Function to check QUEUE is empty.
 int is_empty()
 {
-	if (FRONT == NULL && REAR == NULL)
+	if (NULL == front && NULL == rear)
 		return 1;
 	else
 		return 0;
@@ -21,7 +21,7 @@ int is_empty()
 int enqueue(int item)
 {
 	struct node *new_node = (struct node *)malloc(sizeof(struct node));
-	if (new_node == NULL)
+	if (NULL == new_node)
 	{
 		printf("\n\tOVERFLOW!");
 		return -1;
@@ -31,11 +31,11 @@ int enqueue(int item)
 		new_node->data = item;
 		new_node->link = NULL;
 		if (is_empty())
-			FRONT = REAR = new_node;
+			front = rear = new_node;
 		else
 		{
-			REAR->link = new_node;
-			REAR = new_node;
+			rear->link = new_node;
+			rear = new_node;
 		}
 		return 1;
 	}
@@ -51,13 +51,13 @@ int dequeue()
 	}
 	else
 	{
-		int item = FRONT->data;
-		struct node *del = FRONT;
+		int item = front->data;
+		struct node *del = front;
 
-		if (FRONT == REAR)
-			FRONT = REAR = NULL;
+		if (front == rear)
+			front = rear = NULL;
 		else
-			FRONT = FRONT->link;
+			front = front->link;
 		del->link = NULL;
 
 		free(del);

@@ -12,7 +12,7 @@ typedef struct node
 // Function for inserting new node.
 tree_node *insert_node(tree_node *root, int value)
 {
-    if (root == NULL)
+    if (NULL == root)
     {
         root = (tree_node *)malloc(sizeof(tree_node));
         root->data = value;
@@ -34,7 +34,7 @@ int max(int a, int b) { return (a < b ? b : a); }
 // Function to get height of tree.
 int tree_height(tree_node *root)
 {
-    if (root == NULL)
+    if (NULL == root)
         return 0;
     return max(tree_height(root->left), tree_height(root->right)) + 1;
 }

@@ -9,7 +9,7 @@ typedef struct node
 } node;
 
 // Head of linked list.
-node *HEAD = NULL;
+node *head = NULL;
 
 // Function for inserting new node in linked.
 int insert()
@@ -20,7 +20,7 @@ int insert()
         // creating node.
         node *p = (node *)malloc(sizeof(node));
 
-        if (p == NULL)
+        if (NULL == p)
         {
             printf("\n\tSPACE IS FULL!");
             return 0;
@@ -33,15 +33,15 @@ int insert()
         scanf("%d", &p->data);
 
         // If the first node.
-        if (HEAD == NULL)
+        if (NULL == head)
         {
-            HEAD = p;
+            head = p;
             p = NULL;
         }
         else
         {
             // Not first node.
-            node *temp = HEAD;
+            node *temp = head;
 
             // Adding new node at the end.
             while (temp->next != NULL)
@@ -65,7 +65,7 @@ int insert()
 int display()
 {
     // List is empty.
-    if (HEAD == NULL)
+    if (NULL == head)
     {
         printf("\n\tLIST IS EMPTY!!");
         return 0;
@@ -73,7 +73,7 @@ int display()
     else
     {
         // Printing the list.
-        node *temp = HEAD;
+        node *temp = head;
 
         printf("\nLIST :");
         while (temp->next != NULL)
@@ -91,7 +91,7 @@ int display()
 int delete ()
 {
     // If the list is empty.
-    if (HEAD == NULL)
+    if (NULL == head)
     {
         printf("\n\tLIST IS EMPTY!!");
         return 0;
@@ -107,8 +107,8 @@ int delete ()
         if (position == 1)
         {
             // Moving the HEAD pointer to the second node.
-            node *del = HEAD;
-            HEAD = HEAD->next;
+            node *del = head;
+            head = head->next;
             // Deleting first node.
             del->next = NULL;
             free(del);
@@ -116,7 +116,7 @@ int delete ()
         else
         {
             // Traversing to the previous node of the given position.
-            node *temp = HEAD;
+            node *temp = head;
             while (temp->next != NULL && position-- > 2)
             {
                 temp = temp->next;
@@ -149,14 +149,14 @@ int delete ()
 int search()
 {
     // List is empty.
-    if (HEAD == NULL)
+    if (NULL == head)
     {
         printf("\n\tLIST IS EMPTY!!");
         return 0;
     }
     else
     {
-        node *temp = HEAD;
+        node *temp = head;
         int index = 1, key;
 
         // Getting the search element.
@@ -185,7 +185,7 @@ int search()
 int reverse()
 {
     // If the list is empty.
-    if (HEAD == NULL)
+    if (NULL == head)
     {
         printf("\n\tLIST IS EMPTY!!");
         return -1;
@@ -193,7 +193,7 @@ int reverse()
     else
     {
         // Reversing the links.
-        node *p = NULL, *q = NULL, *r = HEAD;
+        node *p = NULL, *q = NULL, *r = head;
 
         while (r)
         {
@@ -203,7 +203,7 @@ int reverse()
             r = p;
         }
 
-        HEAD = q;
+        head = q;
 
         return display();
     }

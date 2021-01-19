@@ -36,7 +36,7 @@ int isempty()
 void push(char c)
 {
     STACK *new_node = (STACK *)malloc(sizeof(STACK));
-    if (new_node == NULL) // if (NULL == new_node)
+    if (NULL == new_node) // if (NULL == new_node)
     {
         printf("STACK IS OVERFLOW!");
         return;
@@ -82,7 +82,7 @@ int insert(int value, int flag)
     new_node->next = NULL;
     new_node->type = flag;
     new_node->data = value;
-    if (HEAD == NULL)
+    if (NULL == HEAD)
     {
         HEAD = new_node;
         new_node = NULL;
@@ -103,7 +103,7 @@ int insert(int value, int flag)
 // Function to display.
 int display()
 {
-    if (HEAD == NULL)
+    if (NULL == HEAD)
     {
         printf("\n\tLIST IS EMPTY!!");
         return 0;
@@ -148,7 +148,7 @@ void infix_to_postfix(char *infix)
 {
     for (int i = 0; i < strlen(infix); i++)
     {
-        if (infix[i] == ' ')
+        if (' ' == infix[i])
             continue;
         if (isalpha(infix[i]))
         {
@@ -176,14 +176,14 @@ void infix_to_postfix(char *infix)
             else
             {
                 // When open bracket found.
-                if (infix[i] == '(')
+                if ('(' == infix[i])
                 {
                     push(infix[i]);
                 }
                 // When Closing bracket found.
-                else if (infix[i] == ')')
+                else if (')' == infix[i])
                 {
-                    while (gettop() != '(')
+                    while ('(' != gettop())
                     {
                         insert(pop(), 1);
                     }

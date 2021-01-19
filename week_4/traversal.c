@@ -12,7 +12,7 @@ typedef struct node
 // Function for inserting new node.
 tree_node *insert_node(tree_node *root, int value)
 {
-    if (root == NULL)
+    if (NULL == root)
     {
         root = (tree_node *)malloc(sizeof(tree_node));
         root->data = value;
@@ -35,7 +35,7 @@ tree_node *insert_node(tree_node *root, int value)
 // Function for preorder.
 void preorder(tree_node *root)
 {
-    if (root != NULL)
+    if (NULL != root)
     {
         printf("%d ", root->data);
         preorder(root->left);
@@ -46,7 +46,7 @@ void preorder(tree_node *root)
 // Function for inroder.
 void inorder(tree_node *root)
 {
-    if (root != NULL)
+    if (NULL != root)
     {
         inorder(root->left);
         printf("%d ", root->data);
@@ -57,7 +57,7 @@ void inorder(tree_node *root)
 // Function for postorder.
 void postorder(tree_node *root)
 {
-    if (root != NULL)
+    if (NULL != root)
     {
         // printf("printnode\n");
         postorder(root->left);

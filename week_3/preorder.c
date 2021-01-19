@@ -52,7 +52,7 @@ struct node *buildtree(struct node *root, int start, int end)
 // Function to print preorder.
 void preorder(struct node *root)
 {
-    if (root != NULL)
+    if (NULL != root)
     {
         printf("%d ", root->data);
         preorder(root->left);

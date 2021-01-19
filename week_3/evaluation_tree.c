@@ -41,7 +41,7 @@ node *HEAD = NULL;
 // Function to check tree stack is empty or not.
 int is_adr_empty()
 {
-	if (top == NULL)
+	if (NULL == top)
 		return 1;
 	else
 		return 0;
@@ -51,7 +51,7 @@ int is_adr_empty()
 int adr_push(struct tree_node *input)
 {
 	STACK *element = (STACK *)malloc(sizeof(STACK));
-	if (element == NULL)
+	if (NULL == element)
 	{
 		printf("\n\t STACK IS FULL!!");
 		return 0;
@@ -59,7 +59,7 @@ int adr_push(struct tree_node *input)
 	else
 	{
 		element->addr = input;
-		if (top == NULL)
+		if (NULL == top)
 		{
 			top = element;
 			top->next = NULL;
@@ -102,7 +102,7 @@ int insert(int value, int flag)
 	p->flg = flag;
 	p->num = value;
 
-	if (HEAD == NULL)
+	if (NULL == HEAD)
 	{
 		HEAD = p;
 		p = NULL;
@@ -124,7 +124,7 @@ int insert(int value, int flag)
 // Function to to build expression tree.
 int buildexpressiontree()
 {
-	if (HEAD == NULL)
+	if (NULL == HEAD)
 	{
 		printf("\n\tLIST IS EMPTY!!");
 		return 0;
@@ -133,7 +133,7 @@ int buildexpressiontree()
 	{
 		node *temp = HEAD;
 
-		while (temp != NULL)
+		while (NULL != temp)
 		{
 			if (temp->flg)
 			{
@@ -176,7 +176,7 @@ int buildexpressiontree()
 //  Function to check number STACK is full.
 int is_numstk_full()
 {
-	if (num_top == SIZE - 1)
+	if (SIZE - 1 == num_top)
 		return 1;
 	else
 		return 0;
@@ -185,7 +185,7 @@ int is_numstk_full()
 //  Function to check number STACK is empty.
 int is_numstk_empty()
 {
-	if (num_top == -1)
+	if (-1 == num_top)
 		return 1;
 	else
 		return 0;
@@ -216,7 +216,7 @@ int pop_numstk()
 //  Function to check operator STACK is empty.
 int is_opstk_empty()
 {
-	if (op_top == -1)
+	if (-1 == op_top)
 		return 1;
 	else
 		return 0;
@@ -225,7 +225,7 @@ int is_opstk_empty()
 //  Function to check operator STACK is full.
 int is_opstk_full()
 {
-	if (op_top == SIZE - 1)
+	if (SIZE - 1 == op_top)
 		return 1;
 	else
 		return 0;
@@ -332,12 +332,12 @@ void infix_to_postfix(char *infix)
 			else
 			{
 				// When open bracket found.
-				if (infix[i] == '(')
+				if ('(' == infix[i])
 				{
 					push_opstk(infix[i]);
 				}
 				// When Closing bracket found.
-				else if (infix[i] == ')')
+				else if (')' == infix[i])
 				{
 					while (get_top() != '(')
 					{
@@ -406,7 +406,7 @@ int eval_exp_tree(struct tree_node *root)
 	if (root == NULL)
 		return 0;
 	// leaf node of the tree.
-	if (root->right == NULL && root->left == NULL)
+	if (NULL == root->right && NULL == root->left)
 		return root->data;
 
 	// All other node | operator node.

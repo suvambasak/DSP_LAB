@@ -7,7 +7,7 @@
 //  Function to check STACK is full.
 int is_full(int *top)
 {
-    if (*top == SIZE - 1)
+    if (SIZE - 1 == *top)
         return 1;
     else
         return 0;
@@ -16,7 +16,7 @@ int is_full(int *top)
 // Function to check STACK is empty.
 int is_empty(int *top)
 {
-    if (*top == -1)
+    if (-1 == *top)
         return 1;
     else
         return 0;
@@ -111,7 +111,7 @@ int main()
 
     // Moving the disk.
     for (i = 1; i <= total_moves; i++)
-    {== 1
+    {
         if ((i % 3) == 1)
         {
             // Move for odd number of disk.
