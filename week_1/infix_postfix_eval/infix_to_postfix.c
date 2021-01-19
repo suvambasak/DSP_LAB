@@ -19,7 +19,7 @@ typedef struct node
 	struct node *next;
 } node;
 
-node *HEAD = NULL;
+node *head = NULL;
 
 // Linkedlist insert function.
 int insert(int value, int flag)
@@ -29,15 +29,15 @@ int insert(int value, int flag)
 	p->flg = flag;
 	p->num = value;
 
-	if (HEAD == NULL)
+	if (NULL == head)
 	{
-		HEAD = p;
+		head = p;
 		p = NULL;
 	}
 	else
 	{
 		// Adding node at the end.
-		node *temp = HEAD;
+		node *temp = head;
 		while (temp->next != NULL)
 			temp = temp->next;
 
@@ -51,17 +51,17 @@ int insert(int value, int flag)
 // Function to show infix expression.
 int display()
 {
-	if (NULL == HEAD)
+	if (NULL == head)
 	{
 		printf("\n\tLIST IS EMPTY!!");
 		return 0;
 	}
 	else
 	{
-		node *temp = HEAD;
+		node *temp = head;
 		printf("\n POSTFIX: ");
 
-		while (NULL != temp)
+		while (temp != NULL)
 		{
 			if (temp->flg)
 				printf("%c ", temp->num);
@@ -266,17 +266,17 @@ void infix_to_postfix(char *infix)
 // Function for evaluating the post fix expression.
 int evaluate()
 {
-	if (HEAD == NULL)
+	if (NULL == head)
 	{
 		printf("\n\t NO EXPRESSION FOUND.");
 		return 0;
 	}
 	else
 	{
-		node *temp = HEAD;
+		node *temp = head;
 		// var operand.
 		int op1, op2;
-		while (temp != NULL)
+		while (NULL != temp)
 		{
 			if (temp->flg)
 			{
