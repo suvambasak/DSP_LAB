@@ -6,37 +6,36 @@
 #include <math.h>
 #define SIZE 100
 
-// Number stack and Operator stack.
-char op_stack[SIZE];
-int num_stack[SIZE];
-int op_top = -1, num_top = -1;
-
-// Node structure for holding expression.
+// Node structure for holding postfix expression.
 typedef struct node
 {
-	int flg;
+	int flag;
 	int num;
 	struct node *next;
 } node;
 
-// Node structure for tree node.
+// Node structure for tree node (evaluation tree).
 struct tree_node
 {
 	struct tree_node *left, *right;
-	int flg;
+	int flag;
 	int data;
 } *root = NULL;
 
-// Node structure for stack for pushing tree.
+// Node structure for stack for pushing tree nodes.
 typedef struct stack_node
 {
 	struct tree_node *addr;
 	struct stack_node *next;
-} STACK;
+} stack;
 
-// Tree stack and linked list.
-STACK *top = NULL;
-node *HEAD = NULL;
+// Tree stack top and linked list head.
+stack *top = NULL;
+node *head = NULL;
+
+// Number stack and Operator stack.
+char op_stack[SIZE];
+int op_top = -1;
 
 // Function to check tree stack is empty or not.
 int is_adr_empty()
@@ -50,7 +49,7 @@ int is_adr_empty()
 // Function to push tree node into the stack.
 int adr_push(struct tree_node *input)
 {
-	STACK *element = (STACK *)malloc(sizeof(STACK));
+	stack *element = (stack *)malloc(sizeof(stack));
 	if (NULL == element)
 	{
 		printf("\n\t STACK IS FULL!!");
@@ -85,7 +84,7 @@ struct tree_node *adr_pop()
 	{
 		struct tree_node *item = top->addr;
 
-		STACK *del = top;
+		stack *del = top;
 		top = top->next;
 		del->next = NULL;
 		free(del);
@@ -99,18 +98,18 @@ int insert(int value, int flag)
 {
 	node *p = (node *)malloc(sizeof(node));
 	p->next = NULL;
-	p->flg = flag;
+	p->flag = flag;
 	p->num = value;
 
-	if (NULL == HEAD)
+	if (NULL == head)
 	{
-		HEAD = p;
+		head = p;
 		p = NULL;
 	}
 	else
 	{
 		// Adding node at the end.
-		node *temp = HEAD;
+		node *temp = head;
 		while (temp->next != NULL)
 			temp = temp->next;
 
@@ -124,23 +123,23 @@ int insert(int value, int flag)
 // Function to to build expression tree.
 int buildexpressiontree()
 {
-	if (NULL == HEAD)
+	if (NULL == head)
 	{
 		printf("\n\tLIST IS EMPTY!!");
 		return 0;
 	}
 	else
 	{
-		node *temp = HEAD;
+		node *temp = head;
 
 		while (NULL != temp)
 		{
-			if (temp->flg)
+			if (temp->flag)
 			{
 				// For operator create a node.
 				struct tree_node *new_node = (struct tree_node *)malloc(sizeof(struct tree_node));
 				new_node->data = temp->num;
-				new_node->flg = temp->flg;
+				new_node->flag = temp->flag;
 				new_node->left = NULL;
 				new_node->right = NULL;
 
@@ -160,7 +159,7 @@ int buildexpressiontree()
 				// for operand create a node.
 				struct tree_node *new_node = (struct tree_node *)malloc(sizeof(struct tree_node));
 				new_node->data = temp->num;
-				new_node->flg = temp->flg;
+				new_node->flag = temp->flag;
 				new_node->left = NULL;
 				new_node->right = NULL;
 
@@ -171,46 +170,6 @@ int buildexpressiontree()
 		}
 		return 1;
 	}
-}
-
-//  Function to check number STACK is full.
-int is_numstk_full()
-{
-	if (SIZE - 1 == num_top)
-		return 1;
-	else
-		return 0;
-}
-
-//  Function to check number STACK is empty.
-int is_numstk_empty()
-{
-	if (-1 == num_top)
-		return 1;
-	else
-		return 0;
-}
-
-// Function to push item into the number STACK.
-void push_numstk(int item)
-{
-	if (is_numstk_full())
-	{
-		printf("\n\tSTACK OVERFLOW!");
-		return;
-	}
-	num_stack[++num_top] = item;
-}
-
-// Function to pop item from the number STACK.
-int pop_numstk()
-{
-	if (is_numstk_empty())
-	{
-		printf("\n\tSTACK UNDERFLOW!");
-		return -1;
-	}
-	return num_stack[num_top--];
 }
 
 //  Function to check operator STACK is empty.
@@ -287,21 +246,19 @@ int get_precedence(char ch)
 }
 
 // Function to check input char is a operator.
-int is_operator(char ch)
+int is_valid_symbol(char ch)
 {
 	if (
 		ch == '^' ||
 		ch == '+' ||
 		ch == '-' ||
 		ch == '*' ||
-		ch == '/')
-	{
+		ch == '/' ||
+		ch == ')' ||
+		ch == '(')
 		return 1;
-	}
 	else
-	{
 		return 0;
-	}
 }
 
 // Function to conver infix expression to postfix expression.
@@ -387,14 +344,10 @@ void valid(char *infix)
 	for (int i = 0; i < strlen(infix); i++)
 	{
 		// If input char is not digit & not operator.
-		if (!isdigit(infix[i]) && !is_operator(infix[i]))
+		if (!isdigit(infix[i]) && !is_valid_symbol(infix[i]))
 		{
-			// If input char is not ().
-			if (infix[i] != '(' && infix[i] != ')')
-			{
-				printf("Invalid");
-				exit(0);
-			}
+			printf("Invalid");
+			exit(0);
 		}
 	}
 }
