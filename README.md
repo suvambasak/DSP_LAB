@@ -33,4 +33,4 @@
 * Radix generic ([Link](https://github.com/scodebox/DSP_LAB/blob/main/week_5/radix_generic.c))
 #### Week 6
 * BFS ([Link](https://github.com/scodebox/DSP_LAB/blob/main/week_6/bfs.c))
-* BFS ([Link](https://github.com/scodebox/DSP_LAB/blob/main/week_6/dfs.c))
+* DFS ([Link](https://github.com/scodebox/DSP_LAB/blob/main/week_6/dfs.c))
