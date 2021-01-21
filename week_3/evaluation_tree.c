@@ -4,7 +4,10 @@
 #include <string.h>
 #include <ctype.h>
 #include <math.h>
+
 #define SIZE 100
+#define NUMBER 0
+#define OPERATOR 1
 
 // Node structure for holding postfix expression.
 typedef struct node
@@ -33,7 +36,7 @@ typedef struct stack_node
 stack *top = NULL;
 node *head = NULL;
 
-// Number stack and Operator stack.
+// Operator stack.
 char op_stack[SIZE];
 int op_top = -1;
 
@@ -277,7 +280,7 @@ void infix_to_postfix(char *infix)
 				d += infix[i + 1] - '0';
 				i++;
 			}
-			insert(d, 0);
+			insert(d, NUMBER);
 		}
 		else
 		{
@@ -298,7 +301,7 @@ void infix_to_postfix(char *infix)
 				{
 					while (get_top() != '(')
 					{
-						insert(pop_opstk(), 1);
+						insert(pop_opstk(), OPERATOR);
 					}
 					pop_opstk();
 				}
@@ -309,7 +312,7 @@ void infix_to_postfix(char *infix)
 					{
 						while (get_precedence(get_top()) == get_precedence(infix[i]))
 						{
-							insert(pop_opstk(), 1);
+							insert(pop_opstk(), OPERATOR);
 						}
 						push_opstk(infix[i]);
 					}
@@ -323,7 +326,7 @@ void infix_to_postfix(char *infix)
 					{
 						while (get_precedence(get_top()) > get_precedence(infix[i]))
 						{
-							insert(pop_opstk(), 1);
+							insert(pop_opstk(), OPERATOR);
 						}
 						push_opstk(infix[i]);
 					}
@@ -334,7 +337,7 @@ void infix_to_postfix(char *infix)
 	// Inserting all the remaining operator stack content at the end.
 	while (!is_opstk_empty())
 	{
-		insert(pop_opstk(), 1);
+		insert(pop_opstk(), OPERATOR);
 	}
 }
 
