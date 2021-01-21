@@ -14,7 +14,7 @@ int op_top = -1, num_top = -1;
 // Node structure for holding expression.
 typedef struct node
 {
-	int flg;
+	int flag;
 	int num;
 	struct node *next;
 } node;
@@ -26,7 +26,7 @@ int insert(int value, int flag)
 {
 	node *p = (node *)malloc(sizeof(node));
 	p->next = NULL;
-	p->flg = flag;
+	p->flag = flag;
 	p->num = value;
 
 	if (NULL == head)
@@ -63,7 +63,7 @@ int display()
 
 		while (temp != NULL)
 		{
-			if (temp->flg)
+			if (temp->flag)
 				printf("%c ", temp->num);
 			else
 				printf("%d ", temp->num);
@@ -278,7 +278,7 @@ int evaluate()
 		int op1, op2;
 		while (NULL != temp)
 		{
-			if (temp->flg)
+			if (temp->flag)
 			{
 
 				// Poping two operand from the number stack.
