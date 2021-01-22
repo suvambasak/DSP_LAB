@@ -22,9 +22,9 @@ int size;
 // allocate memory for int and return void pointer.
 void *allocate_int(int number)
 {
-    int *ptr = (int *)malloc(sizeof(int));
-    *ptr = number;
-    return ((void *)ptr);
+    int *number_addr = (int *)malloc(sizeof(int));
+    *number_addr = number;
+    return ((void *)number_addr);
 }
 
 // For Invalid input.
@@ -55,22 +55,23 @@ void insert(int data)
 {
     // List 1.
     node *new_node_1 = (node *)malloc(sizeof(node));
-    new_node_1->data = allocate_int(data);
-    new_node_1->next = NULL;
-    new_node_1->prev = NULL;
-
     // List 2.
     node *new_node_2 = (node *)malloc(sizeof(node));
-    new_node_2->data = NULL;
-    new_node_2->next = NULL;
-    new_node_2->prev = NULL;
-
     // Memory full.
-    if (NULL == new_node_1)
+    if (NULL == new_node_1 || NULL == new_node_2)
     {
         printf("\nERROR!");
         exit(0);
     }
+
+    // List 1.
+    new_node_1->data = allocate_int(data);
+    new_node_1->next = NULL;
+    new_node_1->prev = NULL;
+    // List 2.
+    new_node_2->data = NULL;
+    new_node_2->next = NULL;
+    new_node_2->prev = NULL;
 
     // First node.
     if (NULL == head_1)
@@ -98,7 +99,7 @@ void insert(int data)
 }
 
 // Insert value in given index.
-void insert_index(node *head, void *data, int index)
+void insert_at_index(node *head, void *data, int index)
 {
     // Invalid index.
     if (index > size)
@@ -139,7 +140,6 @@ void count_frequency(int *count, int place)
 // Sorting based on place value.
 void build_output_list(int *count, int place)
 {
-    int index = size - 1;
     node *t = tail_1;
 
     while (t)
@@ -147,10 +147,9 @@ void build_output_list(int *count, int place)
         // printf("\n %d -> %d ",index,t->data);
         int update_index = ((*(int *)t->data) / place) % 10;
         count[update_index]--;
-        insert_index(head_2, t->data, count[update_index]);
+        insert_at_index(head_2, t->data, count[update_index]);
 
         t = t->prev;
-        index--;
     }
 }
 
@@ -168,6 +167,8 @@ void count_sort(int place)
 
     // Sort based on place.
     build_output_list(count, place);
+    free(count);
+
     // Swaping list head and tail pointer.
     swap_list();
 }
@@ -185,6 +186,10 @@ int main()
     int input;
     // Number of items.
     scanf("%d", &size);
+
+    /*
+    121 432 564 23 1 45 788
+    */
 
     if (size > 0)
     {
