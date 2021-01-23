@@ -34,3 +34,5 @@
 #### Week 6
 * BFS ([Link](https://github.com/scodebox/DSP_LAB/blob/main/week_6/bfs.c))
 * DFS ([Link](https://github.com/scodebox/DSP_LAB/blob/main/week_6/dfs.c))
+#### Week 7
+* Floyd Warshall ([Link](https://github.com/scodebox/DSP_LAB/blob/main/week_7/floyd_warshall.c))
