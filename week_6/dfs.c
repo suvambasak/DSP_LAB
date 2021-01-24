@@ -1,15 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// Structure for each node.
-typedef struct node
-{
-	int data;
-	struct node *next;
-} stack;
-
 // Global variables
-stack *top = NULL;
 int **graph;
 int total_node;
 int *visited;
@@ -32,60 +24,6 @@ int *node_name;
 // 		{0,1,0,0,0,1},
 // 		{0,0,0,0,1,0}
 //     };
-
-// Function to check STACK is empty.
-int is_empty()
-{
-	if (NULL == top)
-		return 1;
-	else
-		return 0;
-}
-
-// Function to push item into the STACK.
-void push(int input)
-{
-	stack *element = (stack *)malloc(sizeof(stack));
-	if (NULL == element)
-	{
-		printf("\n\t STACK IS FULL!!");
-	}
-	else
-	{
-		element->data = input;
-		if (NULL == top)
-		{
-			top = element;
-			top->next = NULL;
-		}
-		else
-		{
-			element->next = top;
-			top = element;
-		}
-	}
-}
-
-// Function to pop item from the STACK.
-int pop()
-{
-	if (is_empty())
-	{
-		printf("\n\tSTACK IS EMPTY!\n");
-		return -1;
-	}
-	else
-	{
-		int item = top->data;
-
-		stack *del = top;
-		top = top->next;
-		del->next = NULL;
-		free(del);
-
-		return item;
-	}
-}
 
 // Function to print visiting nodes.
 void show_visiting_node(int node_index)
