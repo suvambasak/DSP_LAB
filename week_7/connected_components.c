@@ -10,6 +10,7 @@ typedef struct graph_node{
 typedef struct graph_struct{
     int vertices;
     int edges;
+    int *visited;
     graph_node** adj_list;
 }graph_struct;
 
@@ -23,8 +24,9 @@ void error_exit(char* err){
 
 void create_graph(int v, int e){
     graph=(graph_struct*)malloc(sizeof(graph_struct));
+    graph->visited=(int*)calloc((v+1),sizeof(int));
     graph->adj_list = (graph_node**)calloc((v+1),sizeof(graph_node*));
-    if(NULL==graph || NULL==graph->adj_list)
+    if(NULL==graph || NULL==graph->visited || NULL==graph->adj_list)
         error_exit("Memory full.");
 
     graph->vertices=v;
@@ -54,9 +56,9 @@ void show_graph(){
     printf("TOTAL VERTICES : %d\n",graph->vertices);
     printf("TOTAL EDGES : %d\n",graph->edges);
     
-    for(int i=1;i<=graph->vertices;i++){
-        printf("%d :: ",i);
-        graph_node* list_head = graph->adj_list[i];
+    for(int v=1;v<=graph->vertices;v++){
+        printf("%d :: ",v);
+        graph_node* list_head = graph->adj_list[v];
         while(NULL!=list_head){
             printf("%d -> ",list_head->vertex);
             list_head=list_head->next;
@@ -112,12 +114,33 @@ void read_input_file(char* file_name){
     fclose(input_file);
 }
 
+void dfs(int v){
+    graph->visited[v]=1;
+    graph_node* list_head = graph->adj_list[v];
+
+    while(NULL!=list_head){
+        if(0==graph->visited[list_head->vertex])
+            dfs(list_head->vertex);
+        list_head=list_head->next;
+    }
+}
+
 int main(int argc, char* argv[]){
     if(argc<2)
         error_exit("Filename missing.");
 
     read_input_file(argv[1]);
     show_graph();
+    
+    int component_count=0;
+    for(int v=1;v<=graph->vertices;v++){
+        if(0==graph->visited[v]){
+            dfs(v);
+            component_count++;
+        }
+    }
+
+    printf("\nCONNECTED COMPONENT(s): %d\n",component_count);
 
     return 0;
 }
