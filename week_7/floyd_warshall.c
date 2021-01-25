@@ -13,10 +13,11 @@ unsigned int graph[7][7] = {
     {0, INT_MAX, 4, 6, 3, 0, 7},
     {0, INT_MAX, INT_MAX, INT_MAX, 7, 7, 0}};
 
-// Function to display matrix.
-void show()
+// Function to display matrix and K value.
+void show(int k)
 {
-    printf("\n ADJ MATRIX : \n");
+    printf("\n-----------------------------");
+    printf("\n ADJ MATRIX (K = %d): \n", k);
     for (int i = 1; i <= size; i++)
     {
         for (int j = 1; j <= size; j++)
@@ -29,12 +30,13 @@ int main()
 {
     // Floyd waeshall algorithm.
     for (int k = 1; k <= size; k++)
+    {
         for (int i = 1; i <= size; i++)
             for (int j = 1; j <= size; j++)
                 graph[i][j] = graph[i][j] > (graph[i][k] + graph[k][j]) ? (graph[i][k] + graph[k][j]) : graph[i][j];
-
-    // Show the adjacency matrix with the shortest paths
-    show();
+        // Show the adjacency matrix for each K value.
+        show(k);
+    }
 
     return 0;
 }
