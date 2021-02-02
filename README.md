@@ -39,3 +39,4 @@
 * Connected components ([Link](https://github.com/scodebox/DSP_LAB/blob/main/week_7/connected_components.c))
 #### Week 8
 * Krushkal's Algorithm ([Link](https://github.com/scodebox/DSP_LAB/blob/main/week_8/kruskal.c))
+* B-Tree ([Link](https://github.com/scodebox/DSP_LAB/blob/main/week_8/b-tree.c))
