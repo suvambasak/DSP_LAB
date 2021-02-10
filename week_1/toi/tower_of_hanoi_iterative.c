@@ -2,59 +2,51 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#define SOURCE "S"
+#define DESTINATION "D"
+#define AUXILLIARY "A"
+#define TOTAL_MOVE(N) (pow(2, n) - 1)
 #define SIZE 20
+#define EMPTY -1
 
 //  Function to check STACK is full.
 int is_full(int *top)
 {
     if (SIZE - 1 == *top)
         return 1;
-    else
-        return 0;
+    return 0;
 }
 
 // Function to check STACK is empty.
 int is_empty(int *top)
 {
-    if (-1 == *top)
+    if (EMPTY == *top)
         return 1;
-    else
-        return 0;
+    return 0;
 }
 
 // Function to push item into the STACK.
 void push(int *stack, int *top, int item)
 {
     if (is_full(top))
-    {
         return;
-    }
-    *top = (*top + 1);
-    stack[*top] = item;
+    stack[++(*top)] = item;
 }
 
 // Function to pop item from the STACK.
 int pop(int *stack, int *top)
 {
     if (is_empty(top))
-    {
         return -1;
-    }
-    int item;
-    item = stack[*top];
-    *top = (*top - 1);
-    return item;
+    return stack[(*top)--];
 }
 
 // Function to get top element of the stack with out poping.
 int get_top(int *stack, int *top)
 {
     if (is_empty(top))
-    {
         return (SIZE + 1);
-    }
-    int item = stack[*top];
-    return item;
+    return stack[*top];
 }
 
 // Function for printing all the element of a stack from top to bottom.
@@ -63,31 +55,39 @@ void show(int *stack, int *top)
     int i;
     printf(" CONTENT TOP TO BOTTOM:");
     for (i = *top; i >= 0; i--)
-    {
         printf(" %d", stack[i]);
-    }
 }
 
-// Function that returns the total number of move.
-int number_of_move(int n)
+// Function to move disk
+void move_peg(int move_number, int *stack_1, int *stack_top_1, int *stack_2, int *stack_top_2, char *place_1, char *place_2)
 {
-    int move = pow(2, n);
-    return --move;
+    int item;
+    printf("\n MOVE (%d) B/W [%s] AND [%s] :: ", move_number, place_1, place_2);
+
+    if (get_top(stack_1, stack_top_1) < get_top(stack_2, stack_top_2))
+    {
+        item = pop(stack_1, stack_top_1);
+        push(stack_2, stack_top_2, item);
+        printf("DISK %d FROM [%s] TO [%s]", item, place_1, place_2);
+    }
+    else
+    {
+        item = pop(stack_2, stack_top_2);
+        push(stack_1, stack_top_1, item);
+        printf("DISK %d FROM [%s] TO [%s]", item, place_2, place_1);
+    }
 }
 
 // Main function.
 int main()
 {
-    int n = 2;
-    int i;
-    int total_moves;
-    int flag;
+    int n, flag, total_moves;
 
     printf("\n ENTER NUMBER OF DISK : ");
     scanf("%d", &n);
 
     // Getting total number of moves,
-    total_moves = number_of_move(n);
+    total_moves = TOTAL_MOVE(n);
     // Setting the flag in case of number of disk is odd.
     flag = (n % 2);
 
@@ -98,121 +98,27 @@ int main()
     int top_s = -1, top_a = -1, top_d = -1;
 
     // Inserting N (input value) disk into the source stack.
-    for (i = n; i >= 1; i--)
-    {
+    for (int i = n; i >= 1; i--)
         push(stack_s, &top_s, i);
-    }
 
     // Showing the source stack.
-    printf("\n\n");
-    printf(" SOURCE - ");
+    printf("\n\n SOURCE - ");
     show(stack_s, &top_s);
     printf("\n\n");
 
-    // Moving the disk.
-    for (i = 1; i <= total_moves; i++)
+    // Moving the disk. (ODD DISK:EVEN DISK)
+    for (int i = 1; i <= total_moves; i++)
     {
         if ((i % 3) == 1)
-        {
-            // Move for odd number of disk.
-            if (flag)
-            {
-                printf("\n MOVE (%d) B/W [S] AND [D] :: ", i);
-
-                if (get_top(stack_s, &top_s) < get_top(stack_d, &top_d))
-                {
-                    int item = pop(stack_s, &top_s);
-                    push(stack_d, &top_d, item);
-                    printf("DISK %d FROM [S] TO [D]", item);
-                }
-                else
-                {
-                    int item = pop(stack_d, &top_d);
-                    push(stack_s, &top_s, item);
-                    printf("DISK %d FROM [D] TO [S]", item);
-                }
-            }
-            // Move for even number of disk.
-            else
-            {
-                printf("\n MOVE (%d) B/W [S] AND [A] :: ", i);
-
-                if (get_top(stack_s, &top_s) < get_top(stack_a, &top_a))
-                {
-                    int item = pop(stack_s, &top_s);
-                    push(stack_a, &top_a, item);
-                    printf("DISK %d FROM [S] TO [A]", item);
-                }
-                else
-                {
-                    int item = pop(stack_a, &top_a);
-                    push(stack_s, &top_s, item);
-                    printf("DISK %d FROM [A] TO [S]", item);
-                }
-            }
-        }
+            flag ? move_peg(i, stack_s, &top_s, stack_d, &top_d, SOURCE, DESTINATION) : move_peg(i, stack_s, &top_s, stack_a, &top_a, SOURCE, AUXILLIARY);
         if ((i % 3) == 2)
-        {
-            // Move for odd number of disk.
-            if (flag)
-            {
-                printf("\n MOVE (%d) B/W [S] AND [A] :: ", i);
-
-                if (get_top(stack_s, &top_s) < get_top(stack_a, &top_a))
-                {
-                    int item = pop(stack_s, &top_s);
-                    push(stack_a, &top_a, item);
-                    printf("DISK %d FROM [S] TO [A]", item);
-                }
-                else
-                {
-                    int item = pop(stack_a, &top_a);
-                    push(stack_s, &top_s, item);
-                    printf("DISK %d FROM [A] TO [S]", item);
-                }
-            }
-            // Move for even number of disk.
-            else
-            {
-                printf("\n MOVE (%d) B/W [S] AND [D] :: ", i);
-
-                if (get_top(stack_s, &top_s) < get_top(stack_d, &top_d))
-                {
-                    int item = pop(stack_s, &top_s);
-                    push(stack_d, &top_d, item);
-                    printf("DISK %d FROM [S] TO [D]", item);
-                }
-                else
-                {
-                    int item = pop(stack_d, &top_d);
-                    push(stack_s, &top_s, item);
-                    printf("DISK %d FROM [D] TO [S]", item);
-                }
-            }
-        }
+            flag ? move_peg(i, stack_s, &top_s, stack_a, &top_a, SOURCE, AUXILLIARY) : move_peg(i, stack_s, &top_s, stack_d, &top_d, SOURCE, DESTINATION);
         if ((i % 3) == 0)
-        {
-            // Same move for odd/even number of disk.
-            printf("\n MOVE (%d) B/W [A] AND [D] :: ", i);
-
-            if (get_top(stack_a, &top_a) < get_top(stack_d, &top_d))
-            {
-                int item = pop(stack_a, &top_a);
-                push(stack_d, &top_d, item);
-                printf("DISK %d FROM [A] TO [D]", item);
-            }
-            else
-            {
-                int item = pop(stack_d, &top_d);
-                push(stack_a, &top_a, item);
-                printf("DISK %d FROM [D] TO [A]", item);
-            }
-        }
+            move_peg(i, stack_a, &top_a, stack_d, &top_d, AUXILLIARY, DESTINATION);
     }
 
     // Showing the destination stack after all moves.
-    printf("\n\n");
-    printf(" DESTINATION - ");
+    printf("\n\n DESTINATION - ");
     show(stack_d, &top_d);
     printf("\n\n");
 
