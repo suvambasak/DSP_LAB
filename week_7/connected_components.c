@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
+#define VISITED 1
+#define NOT_VISITED 0
 
 // Data structures for Adjacency List
 
@@ -168,14 +170,14 @@ void read_input_file(char *file_name)
 void dfs(int v)
 {
     // Set the vertex v visited.
-    graph->visited[v] = 1;
+    graph->visited[v] = VISITED;
 
     // Check for all adjacent vertices of vertex v.
     graph_node *list_head = graph->adj_list[v];
     while (NULL != list_head)
     {
         // If unvisited adjacent vertex found call dfs recursively
-        if (0 == graph->visited[list_head->vertex])
+        if (NOT_VISITED == graph->visited[list_head->vertex])
             dfs(list_head->vertex);
         list_head = list_head->next;
     }
@@ -195,7 +197,7 @@ int main(int argc, char *argv[])
     int component_count = 0;
     for (int v = 1; v <= graph->vertices; v++)
     {
-        if (0 == graph->visited[v])
+        if (NOT_VISITED == graph->visited[v])
         {
             dfs(v);
             component_count++;
