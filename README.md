@@ -7,7 +7,7 @@
     - Stack using array ([Link](https://github.com/scodebox/DSP_LAB/blob/main/week_1/stack/stack_with_array.c))
     - Stack using linkedlist ([Link](https://github.com/scodebox/DSP_LAB/blob/main/week_1/stack/stack_with_linkedlist.c))
 * Queue
-    - Queue using array ([Link](https://github.com/scodebox/DSP_LAB/blob/main/week_1/queue/queue_with_array.c)
+    - Queue using array ([Link](https://github.com/scodebox/DSP_LAB/blob/main/week_1/queue/queue_with_array.c))
     - Queue using linkedlist ([Link](https://github.com/scodebox/DSP_LAB/blob/main/week_1/queue/queue_with_linkedlist.c))
 * Stack & Queue
     - Queue using stack ([Link](https://github.com/scodebox/DSP_LAB/blob/main/week_1/stk_with_q-q_with_stk/queue_using_stack.c))
