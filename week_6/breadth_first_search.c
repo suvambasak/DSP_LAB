@@ -65,57 +65,57 @@ int dequeue(queue **front, queue **rear)
 }
 
 // BFS Algorithm.
-void bfs(int **graph, int total_nodes, int current_node, int *visited)
+void bfs(int **graph, int vertices, int vertex, int *visited)
 {
 	queue *front = NULL, *rear = NULL;
 	// Starting node.
-	enqueue(current_node, &front, &rear);
-	visited[current_node] = EXPLORING;
+	enqueue(vertex, &front, &rear);
+	visited[vertex] = EXPLORING;
 
 	while (!is_empty(&front))
 	{
 		// Dequeue node from the queue & change to visited.
-		current_node = dequeue(&front, &rear);
-		visited[current_node] = VISITED;
-		printf("\n\t VISITING NODE : %d ", current_node + 1);
+		vertex = dequeue(&front, &rear);
+		visited[vertex] = VISITED;
+		printf("\n\t VISITING NODE : %d ", vertex + 1);
 
-		for (int i = 0; i < total_nodes; i++)
+		for (int adj_vertex = 0; adj_vertex < vertices; adj_vertex++)
 			// Exploring all the adjacent nodes.
-			if (EDGE_EXIST == graph[current_node][i] && NOT_VISITED == visited[i])
+			if (EDGE_EXIST == graph[vertex][adj_vertex] && NOT_VISITED == visited[adj_vertex])
 			{
 				// Enqueue the unvisited nodes & change to exploring.
-				enqueue(i, &front, &rear);
-				visited[i] = EXPLORING;
+				enqueue(adj_vertex, &front, &rear);
+				visited[adj_vertex] = EXPLORING;
 			}
 	}
 }
 
 int main()
 {
-	int total_nodes;
+	int vertices;
 	printf("\n TOTAL NUMBER OF NODES : ");
-	scanf("%d", &total_nodes);
+	scanf("%d", &vertices);
 
 	// Allocating memeory.
-	int *visited = (int *)calloc(total_nodes, sizeof(int));
-	int **graph = (int **)malloc(total_nodes * sizeof(int *));
-	for (int i = 0; i < total_nodes; i++)
-		graph[i] = (int *)malloc(total_nodes * sizeof(int));
+	int *visited = (int *)calloc(vertices, sizeof(int));
+	int **graph = (int **)malloc(vertices * sizeof(int *));
+	for (int i = 0; i < vertices; i++)
+		graph[i] = (int *)malloc(vertices * sizeof(int));
 
 	// Adjacency Matrix of given graph.
 	printf("\n Adjacency Matrix \n");
-	for (int i = 0; i < total_nodes; i++)
+	for (int i = 0; i < vertices; i++)
 	{
 		printf(" Node %d : ", i + 1);
-		for (int j = 0; j < total_nodes; j++)
+		for (int j = 0; j < vertices; j++)
 			scanf("%d", &graph[i][j]);
 	}
 
 	// BFS calling for components of graph.
 	printf("\n Breadth first search :\n");
-	for (int node = 0; node < total_nodes; node++)
-		if (NOT_VISITED == visited[node])
-			bfs(graph, total_nodes, node, visited);
+	for (int vertex = 0; vertex < vertices; vertex++)
+		if (NOT_VISITED == visited[vertex])
+			bfs(graph, vertices, vertex, visited);
 
 	printf("\n");
 	return 0;
