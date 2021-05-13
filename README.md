@@ -43,3 +43,9 @@
 #### Week 8
 * Krushkal's Algorithm ([Link](https://github.com/scodebox/DSP_LAB/blob/main/week_8/kruskal.c))
 * B-Tree ([Link](https://github.com/scodebox/DSP_LAB/blob/main/week_8/b-tree.c))
+
+#### Other
+* Linkedlist ([Link](https://github.com/scodebox/DSP_LAB/blob/main/other/Linkedlist))
+* Queue ([Link](https://github.com/scodebox/DSP_LAB/blob/main/other/Queue))
+* Stack ([Link](https://github.com/scodebox/DSP_LAB/blob/main/other/Stack))
+* BST ([Link](https://github.com/scodebox/DSP_LAB/blob/main/other/BST.c))
